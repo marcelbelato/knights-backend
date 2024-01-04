@@ -1,7 +1,5 @@
 ﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Attributes;
-using System.Text.Json.Serialization;
 
 namespace Domain.Entities
 {
@@ -24,29 +22,25 @@ namespace Domain.Entities
         public required string KeyAttribute { get; set; }
         public string Class { get; set; } = "knights";
 
-        private int _attack;
-        private int _age;
-        private double _experience;
-
         public int Attack
         {
-            get => _attack;
-            private set => _attack = CalculateAttack();
+            get => CalculateAttack();
         }
 
         public int Age
         {
-            get => _age;
-            private set => _age = CalculateAge();
+            get => CalculateAge();
         }
 
         public double Experience
         {
-            get => _experience;
-            private set => _experience = CalculateExperience();
+            get => CalculateExperience();
         }
 
-        public int CountWeapons => Weapons?.Count ?? 0;
+        public int CountWeapons
+        {
+            get => Weapons?.Count ?? 0;
+        }
 
         private int CalculateAttack()
         {
@@ -72,7 +66,7 @@ namespace Domain.Entities
         }
 
         private double CalculateExperience() =>
-            Math.Floor((_age - 7) * Math.Pow(22, 1.45));
+            Math.Floor((Age - 7) * Math.Pow(22, 1.45));
 
         private int GetKeyAttributeModifier(int keyAttrValue) =>
             keyAttrValue switch
