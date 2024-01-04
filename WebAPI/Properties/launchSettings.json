@@ -21,11 +21,11 @@
     "Docker": {
       "commandName": "Docker",
       "launchBrowser": true,
-      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/swagger",
+      "launchUrl": "http://localhost:{ServicePort}/swagger/index.html",
       "environmentVariables": {
         "ASPNETCORE_URLS": "http://+:80"
       },
-      "publishAllPorts": true
+      "publishAllPorts": false
     }
   },
   "$schema": "https://json.schemastore.org/launchsettings.json",
@@ -33,7 +33,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:16501",
+      "applicationUrl": "http://localhost:32770",
       "sslPort": 0
     }
   }
