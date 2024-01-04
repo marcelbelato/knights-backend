@@ -1,6 +1,5 @@
 ﻿using Application.Interfaces;
 using Application.Mappers.Request;
-using Application.Mappers.Response;
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,7 +19,7 @@ namespace WebAPI.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> GetAll([FromQuery]string filter="knights")
+        public async Task<IActionResult> GetAll([FromQuery] string filter = "knights")
         {
             try
             {
@@ -37,10 +36,10 @@ namespace WebAPI.Controllers
             }
         }
 
-        [HttpGet("{id:int}")]
+        [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> GetById([FromRoute]string id)
+        public async Task<IActionResult> GetById([FromRoute] string id)
         {
             try
             {
@@ -60,15 +59,15 @@ namespace WebAPI.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Post([FromBody]CreateKnightRequest request)
+        public async Task<IActionResult> Post([FromBody] CreateKnightRequest request)
         {
             try
             {
                 if (ModelState.IsValid is false)
                     return BadRequest(ModelState);
-                
+
                 await _knightsService.Create(request);
-                
+
                 return Created(string.Empty, request);
             }
             catch (Exception ex)
@@ -77,10 +76,10 @@ namespace WebAPI.Controllers
             }
         }
 
-        [HttpPut("{id:int}")]
+        [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Put([FromRoute]string id, [FromBody]UpdateKnightRequest request)
+        public async Task<IActionResult> Put([FromRoute] string id, [FromBody] UpdateKnightRequest request)
         {
             try
             {
@@ -96,15 +95,19 @@ namespace WebAPI.Controllers
             }
         }
 
-        [HttpDelete("{id:int}")]
+        [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> Delete([FromRoute]string id)
+        public async Task<IActionResult> Delete([FromRoute] string id)
         {
             try
             {
-                await _knightsService.TurnKnightIntoAHero(id);
-                return Ok();
+                var result = await _knightsService.TurnKnightIntoAHero(id);
+
+                if (result is false)
+                    return BadRequest();
+
+                return Ok("Knight has been turned into a Hero.");
             }
             catch (Exception ex)
             {
