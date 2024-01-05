@@ -37,7 +37,13 @@ namespace Application.Services
         {
             var knights = await _knightsRepository.GetAllAsync() ?? Enumerable.Empty<Knight>();
 
-            return knights.Where(knight => string.Equals(knight.Class, filter, StringComparison.OrdinalIgnoreCase));
+            var isHero = string.Equals("Heroes", filter, StringComparison.OrdinalIgnoreCase);
+
+            return knights.Where(knight => 
+            (knight.IsActive 
+            && ((knight.IsHero.Equals(isHero)) 
+            || string.IsNullOrEmpty(filter))
+            ));
         }
 
         public async Task<Knight> GetById(string id) =>
@@ -55,14 +61,14 @@ namespace Application.Services
             return await _knightsRepository.UpdateAsync(knight);
         }
 
-        public async Task<bool> TurnKnightIntoAHero(string id)
+        public async Task<bool> Inactivate(string id)
         {
             var knight = await _knightsRepository.GetByIdAsync(id) ?? null;
 
             if (knight is null)
                 return false;
 
-            knight.Class = "heroes";
+            knight.IsActive = false;
 
             return await _knightsRepository.UpdateAsync(knight);
         }

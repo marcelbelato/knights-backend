@@ -19,7 +19,7 @@ namespace WebAPI.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> GetAll([FromQuery] string filter = "knights")
+        public async Task<IActionResult> GetAll([FromQuery] string filter = "")
         {
             try
             {
@@ -102,12 +102,12 @@ namespace WebAPI.Controllers
         {
             try
             {
-                var result = await _knightsService.TurnKnightIntoAHero(id);
+                var result = await _knightsService.Inactivate(id);
 
                 if (result is false)
                     return BadRequest();
 
-                return Ok("Knight has been turned into a Hero.");
+                return Ok("Knight has been deactivated.");
             }
             catch (Exception ex)
             {

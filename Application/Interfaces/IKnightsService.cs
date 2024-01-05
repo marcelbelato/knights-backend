@@ -10,6 +10,6 @@ namespace Application.Interfaces
         Task<bool> Delete(string id);
         Task<Knight> GetById(string id);
         Task<IEnumerable<Knight>> GetAll(string filter);
-        Task<bool> TurnKnightIntoAHero(string id);
+        Task<bool> Inactivate(string id);
     }
 }

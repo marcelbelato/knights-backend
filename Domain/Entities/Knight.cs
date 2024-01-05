@@ -20,7 +20,8 @@ namespace Domain.Entities
         public Attributes? Attributes { get; set; }
         [BsonElement("keyAttribute")]
         public required string KeyAttribute { get; set; }
-        public string Class { get; set; } = "knights";
+        [BsonElement("isActive")]
+        public bool IsActive { get; set; } = true;
 
         public int Attack
         {
@@ -40,6 +41,11 @@ namespace Domain.Entities
         public int CountWeapons
         {
             get => Weapons?.Count ?? 0;
+        }
+
+        public bool IsHero
+        {
+            get => ValidateHeroRule();
         }
 
         private int CalculateAttack()
@@ -78,5 +84,7 @@ namespace Domain.Entities
                 19 or 20 => 3,
                 _ => -2
             };
+
+        private bool ValidateHeroRule() => Experience >= 5000;
     }
 }

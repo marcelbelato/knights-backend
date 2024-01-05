@@ -55,7 +55,48 @@ namespace Infrastructure.Context
                         Charisma = 10
                     },
                     KeyAttribute = "Intelligence"
-                }
+                },
+                new Knight
+                {
+                    Name = "Gawain Hero",
+                    Nickname = "Sir Gawain",
+                    Birthday = new DateTime(1950, 1, 1),
+                    Weapons = new List<Weapon>
+                    {
+                        new Weapon { Name = "Sword", Mod = 8, Attr = "Strength", Equipped = true },
+                        new Weapon { Name = "Shield", Mod = 8, Attr = "Wisdom", Equipped = false }
+                    },
+                    Attributes = new Attributes
+                    {
+                        Strength = 10,
+                        Dexterity = 10,
+                        Constitution = 10,
+                        Intelligence = 10,
+                        Wisdom = 10,
+                        Charisma = 10
+                    },
+                    KeyAttribute = "Strength"
+                },
+                new Knight
+                {
+                    Name = "Galahad Hero",
+                    Nickname = "Sir Galahad",
+                    Birthday = new DateTime(1990, 1, 1),
+                    Weapons = new List<Weapon>
+                    {
+                        new Weapon { Name = "Sword", Mod = 8, Attr = "Charisma", Equipped = true }
+                    },
+                    Attributes = new Attributes
+                    {
+                        Strength = 10,
+                        Dexterity = 10,
+                        Constitution = 10,
+                        Intelligence = 10,
+                        Wisdom = 10,
+                        Charisma = 10
+                    },
+                    KeyAttribute = "Charisma"
+                },
             };
         }
     }
